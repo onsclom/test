@@ -13,4 +13,4 @@ Instructions to use:
 
 5. `npm i` in terminal
 
-6. node index.js to run bot!
+6. `node index.js` to run bot!
