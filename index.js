@@ -36,6 +36,7 @@ function startAPI() {
     const port = process.env.PORT || 3000
 
     app.get('/', async function (req, res) {
+        res.header('Access-Control-Allow-Origin', '*');
         let messages = await getMessages()
         res.json(messages)
     })
