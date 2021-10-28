@@ -1,3 +1,5 @@
+
+
 Instructions to use:
 
 1. make your own bot and generate its token following https://discordjs.guide/preparations/setting-up-a-bot-application.html
