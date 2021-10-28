@@ -1,9 +1,7 @@
 // Require the necessary discord.js classes
 const { Client, Intents } = require('discord.js');
-let { token } = require('./config.json');
-if (process.env.token) {
-    token = process.env.token
-}
+require('dotenv').config()
+let token = require(process.env.token);
 
 // Create a new client instance
 const client = new Client({intents: [
