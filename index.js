@@ -1,34 +1,32 @@
-// Require the necessary discord.js classes
-const { Client, Intents } = require('discord.js');
+const {
+    Client,
+    Intents
+} = require('discord.js')
 require('dotenv').config()
-let token = process.env.token;
+let textChannelId = "903383096446038026"
+let token = process.env.token
 
-// Create a new client instance
-const client = new Client({intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_PRESENCES,
-    Intents.FLAGS.GUILD_MEMBERS,
-]});
-
-// When the client is ready, run this code (only once)
-client.once('ready', async () => {
-	console.log('Ready!');
-    await getMessages();
-    startAPI();
+const client = new Client({
+    intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.GUILD_PRESENCES,
+        Intents.FLAGS.GUILD_MEMBERS,
+    ]
 });
 
-client.on("messageCreate", async (message) => {
-    //this code is executed every time you get a message! yay
-    console.log(message)
-})
-
+client.once('ready', async () => {
+    console.log('bot is ready!');
+    startAPI();
+});
 client.login(token);
 
 async function getMessages() {
-    const channel = client.channels.cache.get("903383096446038026");
-    let messages = await channel.messages.fetch({ limit: 100 })
-    console.log(`Received ${messages.size} messages`);
+    const channel = client.channels.cache.get(textChannelId);
+    //to get more than 100 => https://stackoverflow.com/questions/55153125/fetch-more-than-100-messages
+    let messages = await channel.messages.fetch({
+        limit: 100
+    })
     return messages
 }
 
@@ -41,8 +39,8 @@ function startAPI() {
         let messages = await getMessages()
         res.json(messages)
     })
-       
+
     app.listen(port, () => {
-        console.log(`Example app listening at http://localhost:${port}`)
+        console.log(`API listening at http://localhost:${port}`)
     })
 }
