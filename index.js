@@ -27,7 +27,17 @@ async function getMessages() {
     let messages = await channel.messages.fetch({
         limit: 100
     })
-    return messages
+    reformattedMessages = []
+    messages.each(message => {
+        let newMessage = {content: message.content, createdTimestamp: message.createdTimestamp, displayName: message.author.username}
+        newMessage["avatarURL"] = message.author.displayAvatarURL()
+        newMessage["attachmentURLs"] = []
+        message.attachments.each(attachment => {
+            newMessage["attachmentURLs"].push(attachment.url)
+        })
+        reformattedMessages.push(newMessage)
+    })
+    return reformattedMessages
 }
 
 function startAPI() {
